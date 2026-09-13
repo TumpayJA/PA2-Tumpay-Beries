@@ -8,6 +8,7 @@ TagManager:
   - Coin
   - Spikes
   - Barrel
+  - Meta
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - Floor
   - Water
   - UI
-  - 
+  - Meta
   - 
   - 
   - 

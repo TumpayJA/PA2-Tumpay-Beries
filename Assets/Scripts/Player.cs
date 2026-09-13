@@ -20,6 +20,10 @@ public class Player : MonoBehaviour
     public AudioClip coinClip;
     public AudioClip barrelClip;
 
+    public GameObject victoryText;
+    public GameObject meta;
+    public int coinsToWin = 10;
+
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
@@ -57,6 +61,11 @@ public class Player : MonoBehaviour
             Destroy(collision.gameObject);
             coins++;
             textCoins.text = coins.ToString();
+
+            if (coins >= coinsToWin)
+            {
+                meta.SetActive(true);
+            }
         }
 
         if (collision.transform.CompareTag("Spikes"))
@@ -72,7 +81,6 @@ public class Player : MonoBehaviour
             rb2D.AddForce(knockbackDir * 3, ForceMode2D.Impulse);
 
             BoxCollider2D[] colliders = collision.gameObject.GetComponents<BoxCollider2D>();
-
             foreach (BoxCollider2D col in colliders)
             {
                 col.enabled = false;
@@ -80,6 +88,13 @@ public class Player : MonoBehaviour
             
             collision.GetComponent<Animator>().enabled = true;
             Destroy(collision.gameObject, 0.5f);
+        }
+
+        if (collision.transform.CompareTag("Meta"))
+        {
+            victoryText.SetActive(true);
+            Destroy(collision.gameObject);
+            Time.timeScale = 0f;
         }
     }
 }
